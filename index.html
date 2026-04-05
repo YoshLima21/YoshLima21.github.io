@@ -379,62 +379,140 @@
     .pub-link:hover { color: var(--accent); border-color: var(--accent); }
 
     /* CONFERENCES */
-    #conferences .conf-timeline {
-      position: relative;
-      padding-left: 3rem;
+    #conferences { padding-bottom: 5rem; }
+
+    .conf-filter-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
     }
-    .conf-timeline::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-    }
-    .conf-item {
-      position: relative;
-      padding: 0 0 3rem 0;
-    }
-    .conf-item::before {
-      content: '';
-      position: absolute;
-      left: -3rem;
-      top: 0.6rem;
-      width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      box-shadow: 0 0 12px var(--accent);
-    }
-    .conf-year {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 0.3rem;
-    }
-    .conf-name {
-      font-family: var(--font-serif);
-      font-size: 1.2rem;
-      color: var(--text);
-      margin-bottom: 0.2rem;
-    }
-    .conf-location {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-    }
-    .conf-role {
-      display: inline-block;
-      margin-top: 0.5rem;
+    .conf-filter-btn {
       font-family: var(--font-mono);
       font-size: 0.6rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
+      border: 1px solid #333;
+      background: transparent;
+      color: var(--muted);
+      padding: 0.3rem 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .conf-filter-btn.active,
+    .conf-filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .conf-legend {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+    }
+    .conf-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+    .conf-legend-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    #conf-map-container {
+      position: relative;
+      background: #0d0d0d;
+      border: 1px solid var(--border);
+      height: 420px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    #conf-map-svg { width: 100%; height: 100%; }
+
+    .conf-map-tooltip {
+      position: absolute;
+      background: #0a0a0a;
+      border: 1px solid var(--accent);
+      padding: 0.7rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      pointer-events: none;
+      display: none;
+      z-index: 10;
+      max-width: 260px;
+      line-height: 1.7;
+    }
+    .conf-tip-name {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--accent);
+      font-size: 0.85rem;
+      margin-bottom: 0.2rem;
+      display: block;
+    }
+    .conf-tip-loc { color: var(--muted); font-size: 0.62rem; }
+    .conf-tip-role {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 0.15rem 0.5rem;
+    }
+
+    .conf-list { display: flex; flex-direction: column; }
+    .conf-row {
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      gap: 1.5rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid #1a1a1a;
+      align-items: center;
+      transition: background 0.2s, padding 0.2s, margin 0.2s;
+    }
+    .conf-row:hover {
+      background: var(--bg2);
+      padding: 1.2rem 1rem;
+      margin: 0 -1rem;
+    }
+    .conf-row-year {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+    .conf-row-name {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+    .conf-row-loc {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-top: 0.2rem;
+    }
+    .conf-role-badge {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--bg);
       background: var(--accent);
-      padding: 0.2rem 0.6rem;
+      padding: 0.2rem 0.55rem;
+      white-space: nowrap;
     }
+    .conf-role-badge.attendee { background: #333; color: #888; }
 
     /* BLOG */
     #blog .blog-grid {
@@ -624,11 +702,14 @@
       .pub-item { grid-template-columns: 60px 1fr; }
       .pub-link { display: none; }
       #cv { flex-direction: column; }
+      .conf-row { grid-template-columns: 60px 1fr; }
+      .conf-role-badge { display: none; }
     }
     @media (max-width: 600px) {
       .nav-links { display: none; }
       .hero-meta { flex-direction: column; align-items: flex-start; }
       .hero-links { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+      #conf-map-container { height: 260px; }
     }
   </style>
 </head>
@@ -655,7 +736,6 @@
   <!-- HERO -->
   <section id="hero">
     <canvas id="neural"></canvas>
-
     <div class="hero-content">
       <div class="marquee-wrap">
         <div class="marquee-track">
@@ -669,7 +749,6 @@
           <span class="marquee-item">BRAIN-ACCELNET <span>✦</span> </span>
         </div>
       </div>
-
       <div class="hero-meta">
         <div>
           <p class="hero-title">PhD Researcher · University of Houston</p>
@@ -683,7 +762,6 @@
         </div>
       </div>
     </div>
-
     <div class="scroll-indicator">
       <span>Scroll</span>
       <div class="scroll-line"></div>
@@ -696,21 +774,9 @@
     <h2 class="section-heading fade-in">The Mind<br>Behind the Work</h2>
     <div class="about-grid fade-in">
       <div class="about-bio">
-        <p>
-          I am a <em>Neuroscience PhD researcher</em> at the University of Houston, working at the intersection of
-          brain electrophysiology, psychophysiology, and music cognition. My research investigates how the brain
-          encodes, processes, and responds to complex auditory and artistic stimuli.
-        </p>
-        <p>
-          As President of the <em>BRAIN-AccelNet Student Network</em>, I lead an international community of
-          emerging neuroscientists committed to cross-disciplinary collaboration and open science. I believe that
-          understanding the brain requires combining rigorous methodology with creative thinking.
-        </p>
-        <p>
-          My technical work spans <em>EEG signal processing</em>, ICA decomposition, dipole source localization,
-          accelerometer integration, and multimodal data analysis — always in pursuit of a deeper understanding
-          of how we experience the world.
-        </p>
+        <p>I am a <em>Neuroscience PhD researcher</em> at the University of Houston, working at the intersection of brain electrophysiology, psychophysiology, and music cognition. My research investigates how the brain encodes, processes, and responds to complex auditory and artistic stimuli.</p>
+        <p>As President of the <em>BRAIN-AccelNet Student Network</em>, I lead an international community of emerging neuroscientists committed to cross-disciplinary collaboration and open science. I believe that understanding the brain requires combining rigorous methodology with creative thinking.</p>
+        <p>My technical work spans <em>EEG signal processing</em>, ICA decomposition, dipole source localization, accelerometer integration, and multimodal data analysis — always in pursuit of a deeper understanding of how we experience the world.</p>
       </div>
       <div class="about-stats">
         <div class="stat-item fade-in">
@@ -741,57 +807,32 @@
       <div class="project-card">
         <div class="project-tag">EEG · Music Cognition</div>
         <div class="project-name">Diabelli</div>
-        <div class="project-desc">
-          A multimodal study combining EEG recordings with structured musical variation ratings.
-          Examining neural responses to Diabelli's 33 variations across participants, with
-          psychophysiological correlates of aesthetic perception.
-        </div>
+        <div class="project-desc">A multimodal study combining EEG recordings with structured musical variation ratings. Examining neural responses to Diabelli's 33 variations across participants, with psychophysiological correlates of aesthetic perception.</div>
       </div>
       <div class="project-card">
         <div class="project-tag">Signal Processing</div>
         <div class="project-name">ICA Dipole Pipeline</div>
-        <div class="project-desc">
-          An MNE-Python pipeline for automated ICA component classification, dipole fitting
-          to the fsaverage template, and AAL atlas-based anatomical labeling — with
-          per-component MRI, topography, and spectrogram figures.
-        </div>
+        <div class="project-desc">An MNE-Python pipeline for automated ICA component classification, dipole fitting to the fsaverage template, and AAL atlas-based anatomical labeling — with per-component MRI, topography, and spectrogram figures.</div>
       </div>
       <div class="project-card">
         <div class="project-tag">Psychophysiology</div>
         <div class="project-name">ACC + EEG Integration</div>
-        <div class="project-desc">
-          Extending classical EEG raster visualization to include conductor motion data from
-          accelerometers. Traces from head and hand provide a synchronized view of neural and
-          motor dynamics during musical performance.
-        </div>
+        <div class="project-desc">Extending classical EEG raster visualization to include conductor motion data from accelerometers. Traces from head and hand provide a synchronized view of neural and motor dynamics during musical performance.</div>
       </div>
-      <!-- Add more project cards below as needed -->
       <div class="project-card">
         <div class="project-tag">Network</div>
         <div class="project-name">BRAIN-AccelNet</div>
-        <div class="project-desc">
-          As Student Network President, I coordinate international workshops, speaker series
-          (including invited lectures from Prof. Stephen Grossberg), and cross-institutional
-          research collaborations across neuroscience disciplines.
-        </div>
+        <div class="project-desc">As Student Network President, I coordinate international workshops, speaker series (including invited lectures from Prof. Stephen Grossberg), and cross-institutional research collaborations across neuroscience disciplines.</div>
       </div>
       <div class="project-card">
         <div class="project-tag">Open Science</div>
         <div class="project-name">Data Descriptor</div>
-        <div class="project-desc">
-          Preparing a data descriptor publication for the Diabelli EEG dataset — detailing
-          acquisition protocols, preprocessing pipelines, and multimodal figure generation,
-          enabling reproducibility and community reuse.
-        </div>
+        <div class="project-desc">Preparing a data descriptor publication for the Diabelli EEG dataset — detailing acquisition protocols, preprocessing pipelines, and multimodal figure generation, enabling reproducibility and community reuse.</div>
       </div>
       <div class="project-card">
         <div class="project-tag">Methods</div>
         <div class="project-name">Source Localization</div>
-        <div class="project-desc">
-          Applying dipole fitting and AAL parcellation to characterize the spatial origins
-          of ICA components — linking scalp-level electrophysiology to anatomically
-          meaningful brain regions via MNI152 templates.
-        </div>
+        <div class="project-desc">Applying dipole fitting and AAL parcellation to characterize the spatial origins of ICA components — linking scalp-level electrophysiology to anatomically meaningful brain regions via MNI152 templates.</div>
       </div>
     </div>
   </section>
@@ -801,7 +842,6 @@
     <p class="section-label">03 — Publications<span class="section-number">Academic Work</span></p>
     <h2 class="section-heading fade-in">Published<br>Works</h2>
     <div class="pub-list fade-in">
-      <!-- Replace the items below with your real publications -->
       <div class="pub-item">
         <div class="pub-year">2025</div>
         <div>
@@ -832,48 +872,36 @@
   <!-- CONFERENCES -->
   <section id="conferences">
     <p class="section-label">04 — Conferences<span class="section-number">Attended & Presented</span></p>
-    <h2 class="section-heading fade-in">Conferences<br>& Events</h2>
-    <div class="conf-timeline fade-in">
-      <!-- Replace with your real conferences -->
-      <div class="conf-item">
-        <div class="conf-year">2025</div>
-        <div class="conf-name">Add Conference Name Here</div>
-        <div class="conf-location">City, Country · Month Year</div>
-        <span class="conf-role">Presenter</span>
+    <h2 class="section-heading fade-in">Conferences<br>&amp; Events</h2>
+
+    <div class="conf-filter-row fade-in" id="conf-filters">
+      <button class="conf-filter-btn active" data-role="all">All (7)</button>
+      <button class="conf-filter-btn" data-role="Presenter">Presenter</button>
+    </div>
+
+    <div class="conf-legend fade-in">
+      <div class="conf-legend-item">
+        <div class="conf-legend-dot" style="background:#b5ff3a"></div>
+        Presenter
       </div>
-      <div class="conf-item">
-        <div class="conf-year">2025</div>
-        <div class="conf-name">BRAIN-AccelNet Annual Workshop</div>
-        <div class="conf-location">International · Online / In-person</div>
-        <span class="conf-role">Organizer</span>
-      </div>
-      <div class="conf-item">
-        <div class="conf-year">2024</div>
-        <div class="conf-name">Add Conference Name Here</div>
-        <div class="conf-location">City, Country · Month Year</div>
-        <span class="conf-role">Attendee</span>
-      </div>
-      <div class="conf-item">
-        <div class="conf-year">2024</div>
-        <div class="conf-name">Add Conference Name Here</div>
-        <div class="conf-location">City, Country · Month Year</div>
-        <span class="conf-role">Presenter</span>
-      </div>
-      <div class="conf-item">
-        <div class="conf-year">2023</div>
-        <div class="conf-name">Add Conference Name Here</div>
-        <div class="conf-location">City, Country · Month Year</div>
-        <span class="conf-role">Attendee</span>
+      <div class="conf-legend-item" style="font-size:0.6rem;color:#444;letter-spacing:0.08em;">
+        ✦ Click dots to explore · Badge number = multiple events
       </div>
     </div>
+
+    <div id="conf-map-container" class="fade-in">
+      <svg id="conf-map-svg" viewBox="0 0 960 500" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="conf-map-tooltip" id="conf-tooltip"></div>
+    </div>
+
+    <div class="conf-list fade-in" id="conf-list"></div>
   </section>
 
   <!-- BLOG -->
   <section id="blog">
     <p class="section-label">05 — Blog<span class="section-number">Notes & Ideas</span></p>
-    <h2 class="section-heading fade-in">Thoughts<br>& Writing</h2>
+    <h2 class="section-heading fade-in">Thoughts<br>&amp; Writing</h2>
     <div class="blog-grid fade-in">
-      <!-- Replace with real blog posts or link to your blog platform -->
       <div class="blog-card">
         <div class="blog-date">Coming Soon</div>
         <div class="blog-title">What EEG Can — and Cannot — Tell Us About Musical Experience</div>
@@ -939,8 +967,7 @@
         <textarea rows="5" placeholder="Your message…"></textarea>
         <button type="button">Send Message</button>
         <p style="font-family:var(--font-mono);font-size:0.62rem;color:var(--muted);letter-spacing:0.1em;">
-          <!-- Note: to make this form functional, connect it to a service like Formspree or Netlify Forms. -->
-          ✦ Form sends via your preferred service — see GitHub setup guide below.
+          ✦ Form sends via your preferred service — see GitHub setup guide.
         </p>
       </div>
     </div>
@@ -957,6 +984,10 @@
     </ul>
     <p class="footer-copy">© 2025 Yoshua E. Lima-Carmona · Built with purpose</p>
   </footer>
+
+  <!-- D3 + TopoJSON for map -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 
   <script>
     // ─── Custom Cursor ───────────────────────────────────────────────
@@ -1000,8 +1031,7 @@
 
       for (let i = 0; i < NODE_COUNT; i++) {
         nodes.push({
-          x: Math.random() * W,
-          y: Math.random() * H,
+          x: Math.random() * W, y: Math.random() * H,
           vx: (Math.random() - 0.5) * 0.35,
           vy: (Math.random() - 0.5) * 0.35,
           r: Math.random() * 2.5 + 1,
@@ -1018,21 +1048,14 @@
 
       function draw() {
         ctx.clearRect(0, 0, W, H);
-
         nodes.forEach(n => {
-          n.x += n.vx; n.y += n.vy;
-          n.pulse += 0.02;
+          n.x += n.vx; n.y += n.vy; n.pulse += 0.02;
           if (n.x < 0 || n.x > W) n.vx *= -1;
           if (n.y < 0 || n.y > H) n.vy *= -1;
-
           const dx = n.x - mouseX, dy = n.y - mouseY;
           const md = Math.sqrt(dx*dx + dy*dy);
-          if (md < 120) {
-            n.x += dx / md * 0.6;
-            n.y += dy / md * 0.6;
-          }
+          if (md < 120) { n.x += dx / md * 0.6; n.y += dy / md * 0.6; }
         });
-
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
             const dx = nodes[i].x - nodes[j].x;
@@ -1049,7 +1072,6 @@
             }
           }
         }
-
         nodes.forEach((n, idx) => {
           const glow = Math.sin(n.pulse) * 0.5 + 0.5;
           ctx.beginPath();
@@ -1059,16 +1081,153 @@
           ctx.fill();
           ctx.globalAlpha = 1;
         });
-
         requestAnimationFrame(draw);
       }
       draw();
     })();
 
+    // ─── Conference Map ───────────────────────────────────────────────
+    (function() {
+      const conferences = [
+        { year: 2022, name: "Society for Neuroscience 2022",                              city: "Washington DC", country: "USA",     lat: 38.9072, lon: -77.0369, role: "Presenter" },
+        { year: 2024, name: "Society for Neuroscience 2024",                              city: "Washington DC", country: "USA",     lat: 38.9072, lon: -77.0369, role: "Presenter" },
+        { year: 2024, name: "Advanced Neural Data Analysis & Neuroinformatics School",    city: "Jülich",        country: "Germany", lat: 50.9224, lon:   6.3639, role: "Presenter" },
+        { year: 2025, name: "Society for the Neuroscience of Creativity",                 city: "Paris",         country: "France",  lat: 48.8566, lon:   2.3522, role: "Presenter" },
+        { year: 2025, name: "Neuroscience of Performative Arts International Seminar",    city: "Bucharest",     country: "Romania", lat: 44.4268, lon:  26.1025, role: "Presenter" },
+        { year: 2025, name: "EBRAINS Summit",                                             city: "Brussels",      country: "Belgium", lat: 50.8503, lon:   4.3517, role: "Presenter" },
+        { year: 2026, name: "EBRAINS Student Conference on Interdisciplinary Brain Research", city: "Nice",      country: "France",  lat: 43.7102, lon:   7.2620, role: "Presenter" },
+      ];
+
+      let activeFilter = 'all';
+      const W = 960, H = 500;
+      const svg = d3.select('#conf-map-svg');
+      const proj = d3.geoNaturalEarth1().scale(160).translate([W / 2 - 60, H / 2 + 30]);
+      const pathGen = d3.geoPath().projection(proj);
+
+      function visible() {
+        return activeFilter === 'all' ? conferences : conferences.filter(c => c.role === activeFilter);
+      }
+
+      function renderDots() {
+        svg.selectAll('.cmap-dot, .cmap-ring, .cmap-badge').remove();
+        const vis = visible();
+
+        // Group by location
+        const groups = {};
+        vis.forEach(c => {
+          const key = c.lat + ',' + c.lon;
+          if (!groups[key]) groups[key] = [];
+          groups[key].push(c);
+        });
+
+        Object.values(groups).forEach(group => {
+          const c = group[0];
+          const pt = proj([c.lon, c.lat]);
+          if (!pt) return;
+          const [x, y] = pt;
+
+          // Pulse ring
+          svg.append('circle').attr('class', 'cmap-ring')
+            .attr('cx', x).attr('cy', y).attr('r', 10)
+            .attr('fill', 'none').attr('stroke', '#b5ff3a')
+            .attr('stroke-width', 1).attr('opacity', 0.3);
+
+          // Main dot
+          svg.append('circle').attr('class', 'cmap-dot')
+            .attr('cx', x).attr('cy', y).attr('r', 7)
+            .attr('fill', '#b5ff3a').attr('stroke', '#070707').attr('stroke-width', 1.5)
+            .style('cursor', 'pointer')
+            .on('mouseenter', function(event) {
+              d3.select(this).attr('r', 11);
+              const tip = document.getElementById('conf-tooltip');
+              const box = document.getElementById('conf-map-container').getBoundingClientRect();
+              const html = group.map(g =>
+                `<span class="conf-tip-name">${g.name}</span><span class="conf-tip-loc">${g.year}</span>`
+              ).join('<hr style="border:none;border-top:1px solid #222;margin:.4rem 0">') +
+                `<br><span class="conf-tip-loc">${c.city}, ${c.country}</span>` +
+                `<span class="conf-tip-role">Presenter</span>`;
+              tip.innerHTML = html;
+              tip.style.display = 'block';
+              let lx = event.clientX - box.left + 14;
+              let ly = event.clientY - box.top - 10;
+              if (lx > box.width - 270) lx = event.clientX - box.left - 260;
+              tip.style.left = Math.max(4, lx) + 'px';
+              tip.style.top  = Math.max(4, ly) + 'px';
+            })
+            .on('mouseleave', function() {
+              d3.select(this).attr('r', 7);
+              document.getElementById('conf-tooltip').style.display = 'none';
+            });
+
+          // Count badge for multi-event cities
+          if (group.length > 1) {
+            svg.append('text').attr('class', 'cmap-badge')
+              .attr('x', x).attr('y', y + 1)
+              .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
+              .attr('fill', '#070707').attr('font-size', '7').attr('font-weight', 'bold')
+              .attr('pointer-events', 'none')
+              .text(group.length);
+          }
+        });
+      }
+
+      function renderList() {
+        const list = document.getElementById('conf-list');
+        list.innerHTML = visible()
+          .slice().sort((a, b) => b.year - a.year)
+          .map(c => `
+            <div class="conf-row">
+              <div class="conf-row-year">${c.year}</div>
+              <div>
+                <div class="conf-row-name">${c.name}</div>
+                <div class="conf-row-loc">${c.city}, ${c.country}</div>
+              </div>
+              <span class="conf-role-badge">${c.role}</span>
+            </div>`).join('');
+      }
+
+      // Build map
+      svg.append('rect').attr('width', W).attr('height', H).attr('fill', '#0d0d0d');
+
+      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+        .then(r => r.json())
+        .then(world => {
+          const countries = topojson.feature(world, world.objects.countries);
+          svg.append('g').selectAll('path')
+            .data(countries.features).join('path')
+            .attr('d', pathGen)
+            .attr('fill', '#161616')
+            .attr('stroke', '#2c2c2c')
+            .attr('stroke-width', 0.6);
+          renderDots();
+        })
+        .catch(() => {
+          svg.append('text')
+            .attr('x', W / 2).attr('y', H / 2)
+            .attr('text-anchor', 'middle').attr('fill', '#444')
+            .attr('font-size', '13')
+            .text('Map requires internet connection to load country outlines.');
+          renderDots();
+        });
+
+      renderList();
+
+      // Filter buttons
+      document.getElementById('conf-filters').addEventListener('click', e => {
+        const btn = e.target.closest('.conf-filter-btn');
+        if (!btn) return;
+        activeFilter = btn.dataset.role;
+        document.querySelectorAll('.conf-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderDots();
+        renderList();
+      });
+    })();
+
     // ─── Scroll Fade-in ───────────────────────────────────────────────
     const fadeEls = document.querySelectorAll('.fade-in');
     const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.12 });
     fadeEls.forEach(el => observer.observe(el));
 
@@ -1077,23 +1236,28 @@
     const navLinks = document.querySelectorAll('.nav-links a');
     window.addEventListener('scroll', () => {
       let current = '';
-      sections.forEach(s => {
-        if (window.scrollY >= s.offsetTop - 120) current = s.id;
-      });
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
       navLinks.forEach(a => {
         a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
       });
     });
 
-    // ─── Contact form (basic — wire to Formspree for real sends) ─────
+    // ─── Contact form ─────────────────────────────────────────────────
     document.querySelector('.contact-form button').addEventListener('click', function () {
       const inputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
       let ok = true;
-      inputs.forEach(i => { if (!i.value.trim()) { i.style.borderColor = 'var(--accent2)'; ok = false; } else { i.style.borderColor = ''; } });
+      inputs.forEach(i => {
+        if (!i.value.trim()) { i.style.borderColor = 'var(--accent2)'; ok = false; }
+        else { i.style.borderColor = ''; }
+      });
       if (ok) {
         this.textContent = 'Message Sent ✦';
         this.style.background = 'var(--accent2)';
-        setTimeout(() => { this.textContent = 'Send Message'; this.style.background = ''; inputs.forEach(i => i.value = ''); }, 3000);
+        setTimeout(() => {
+          this.textContent = 'Send Message';
+          this.style.background = '';
+          inputs.forEach(i => i.value = '');
+        }, 3000);
       }
     });
   </script>
