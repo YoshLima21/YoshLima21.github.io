@@ -1,1265 +1,778 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yoshua E. Lima-Carmona | Neuroscience Researcher</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yoshua E. Lima-Carmona · Neuroscience Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #070707;
-      --bg2: #101010;
-      --bg3: #181818;
-      --text: #e8e3d5;
-      --muted: #666;
-      --accent: #b5ff3a;
-      --accent2: #3affcb;
-      --border: #222;
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-mono: 'IBM Plex Mono', monospace;
+      --bg: #06060a;
+      --surface: #0e0e18;
+      --card: #12121f;
+      --border: rgba(255,255,255,0.07);
+      --text: #f0eeff;
+      --muted: rgba(240,238,255,0.45);
+      --hint: rgba(240,238,255,0.2);
+      --violet: #8b5cf6;
+      --violet-l: #a78bfa;
+      --violet-d: #6d28d9;
+      --cyan: #22d3ee;
+      --cyan-d: #0891b2;
+      --lime: #a3e635;
+      --lime-d: #65a30d;
+      --orange: #fb923c;
+      --pink: #f472b6;
+      --pink-d: #db2777;
+      --yellow: #fbbf24;
+      --grad-hero: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 50%, #a3e635 100%);
+      --grad-2: linear-gradient(135deg, #f472b6, #fb923c);
+      --grad-3: linear-gradient(135deg, #22d3ee, #8b5cf6);
+      --grad-4: linear-gradient(135deg, #a3e635, #22d3ee);
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'Syne', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
     }
 
     html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); overflow-x: hidden; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-serif);
-      font-size: 18px;
-      line-height: 1.7;
-      overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* Custom cursor */
-    .cursor {
-      position: fixed;
-      width: 12px; height: 12px;
-      background: var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s, width 0.2s, height 0.2s, opacity 0.2s;
-      mix-blend-mode: exclusion;
-    }
-    .cursor-ring {
-      position: fixed;
-      width: 40px; height: 40px;
-      border: 1px solid var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: transform 0.15s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
-      opacity: 0.5;
-    }
-
-    /* NAV */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.4rem 3rem;
-      background: rgba(7,7,7,0.85);
-      backdrop-filter: blur(12px);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 3rem;
+      backdrop-filter: blur(20px);
+      background: rgba(6,6,10,0.75);
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      letter-spacing: 0.12em;
-      color: var(--accent);
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      background: var(--grad-hero); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
       text-decoration: none;
     }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover { color: var(--text); }
 
     /* HERO */
     #hero {
-      position: relative;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 3rem 5rem;
-      overflow: hidden;
+      min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 3rem 5rem; position: relative; overflow: hidden;
     }
-    canvas#neural {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      opacity: 0.45;
+    .blob {
+      position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.3;
+      animation: drift 12s ease-in-out infinite alternate;
     }
-    .hero-content { position: relative; z-index: 2; }
+    .blob-1 { width: 520px; height: 520px; background: var(--violet); top: -120px; right: -80px; animation-duration: 14s; }
+    .blob-2 { width: 420px; height: 420px; background: var(--cyan); bottom: -100px; left: 0%; animation-duration: 10s; animation-delay: -3s; }
+    .blob-3 { width: 320px; height: 320px; background: var(--lime); top: 40%; left: 38%; animation-duration: 18s; animation-delay: -6s; opacity: 0.18; }
+    .blob-4 { width: 260px; height: 260px; background: var(--pink); bottom: 20%; right: 22%; animation-duration: 13s; animation-delay: -9s; opacity: 0.22; }
+    @keyframes drift { 0%{transform:translate(0,0) scale(1);} 100%{transform:translate(35px,25px) scale(1.07);} }
 
-    /* Marquee */
-    .marquee-wrap {
-      overflow: hidden;
-      white-space: nowrap;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 0.4rem 0;
-      margin-bottom: 3rem;
-    }
-    .marquee-track {
-      display: inline-flex;
-      animation: marquee 28s linear infinite;
-    }
-    .marquee-item {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 9vw, 8rem);
-      letter-spacing: 0.04em;
-      color: var(--text);
-      padding-right: 3rem;
-    }
-    .marquee-item span { color: var(--accent); }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+    .hero-brain {
+      position: absolute; right: 3rem; top: 50%; transform: translateY(-50%);
+      width: min(480px, 42vw); opacity: 0.1; pointer-events: none;
     }
 
-    .hero-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
-    .hero-title {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.6rem;
-    }
-    .hero-name {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 6vw, 5.5rem);
-      letter-spacing: 0.06em;
-      line-height: 1;
-      color: var(--text);
-    }
-    .hero-sub {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 1.15rem;
-      color: var(--muted);
-      margin-top: 0.8rem;
-    }
-    .hero-links {
-      display: flex;
-      gap: 1rem;
-      flex-direction: column;
-      align-items: flex-end;
-    }
-    .hero-links a {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-      border-bottom: 1px solid transparent;
-    }
-    .hero-links a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .hero-content { position: relative; z-index: 2; max-width: 720px; }
 
-    /* Scroll indicator */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .scroll-indicator span {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .scroll-line {
-      width: 1px;
-      height: 60px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.3; transform: scaleY(1); }
-      50% { opacity: 1; transform: scaleY(1.15); }
-    }
-
-    /* SECTIONS COMMON */
-    section {
-      padding: 7rem 3rem;
-      border-top: 1px solid var(--border);
-    }
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.8rem;
-    }
-    .section-number {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      float: right;
-    }
-    .section-heading {
-      font-family: var(--font-display);
-      font-size: clamp(2.8rem, 6vw, 5.5rem);
-      letter-spacing: 0.05em;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 3.5rem;
-    }
-
-    /* ABOUT */
-    #about .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .about-bio {
-      font-size: 1.15rem;
-      line-height: 1.85;
-      color: #c0bbb0;
-    }
-    .about-bio p + p { margin-top: 1.2rem; }
-    .about-bio em { color: var(--accent); font-style: normal; }
-    .about-stats {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-    .stat-item { border-left: 2px solid var(--accent); padding-left: 1.5rem; }
-    .stat-number {
-      font-family: var(--font-display);
-      font-size: 3.5rem;
-      color: var(--accent);
-      line-height: 1;
-    }
-    .stat-label {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    /* RESEARCH */
-    #research .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5px;
-      background: var(--border);
-      border: 1.5px solid var(--border);
-    }
-    .project-card {
-      background: var(--bg);
-      padding: 2.5rem;
-      transition: background 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px; height: 0;
-      background: var(--accent);
-      transition: height 0.4s ease;
-    }
-    .project-card:hover::before { height: 100%; }
-    .project-card:hover { background: var(--bg2); }
-    .project-tag {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 1rem;
-    }
-    .project-name {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      letter-spacing: 0.04em;
-      color: var(--text);
-      margin-bottom: 0.8rem;
-      line-height: 1.1;
-    }
-    .project-desc {
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* PUBLICATIONS */
-    #publications .pub-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-    .pub-item {
-      display: grid;
-      grid-template-columns: 80px 1fr auto;
-      gap: 2rem;
-      align-items: start;
-      padding: 2rem 0;
-      border-bottom: 1px solid var(--border);
-      transition: background 0.2s;
-    }
-    .pub-item:hover { background: var(--bg2); margin: 0 -3rem; padding: 2rem 3rem; }
-    .pub-year {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      padding-top: 0.3rem;
-    }
-    .pub-title {
-      font-family: var(--font-serif);
-      font-size: 1.05rem;
-      color: var(--text);
-      margin-bottom: 0.4rem;
-      font-style: italic;
-    }
-    .pub-journal {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .pub-link {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      border: 1px solid var(--border);
-      padding: 0.4rem 0.8rem;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-    .pub-link:hover { color: var(--accent); border-color: var(--accent); }
-
-    /* CONFERENCES */
-    #conferences { padding-bottom: 5rem; }
-
-    .conf-filter-row {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1.2rem;
-      flex-wrap: wrap;
-    }
-    .conf-filter-btn {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      border: 1px solid #333;
-      background: transparent;
-      color: var(--muted);
-      padding: 0.3rem 0.9rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .conf-filter-btn.active,
-    .conf-filter-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .conf-legend {
-      display: flex;
-      gap: 1.5rem;
-      margin-bottom: 1.2rem;
-      flex-wrap: wrap;
-    }
-    .conf-legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-    }
-    .conf-legend-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-    }
-
-    #conf-map-container {
-      position: relative;
-      background: #0d0d0d;
-      border: 1px solid var(--border);
-      height: 420px;
-      overflow: hidden;
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.4);
+      border-radius: 100px; padding: 0.4rem 1rem;
+      font-family: var(--mono); font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--violet-l);
       margin-bottom: 2rem;
     }
-    #conf-map-svg { width: 100%; height: 100%; }
-
-    .conf-map-tooltip {
-      position: absolute;
-      background: #0a0a0a;
-      border: 1px solid var(--accent);
-      padding: 0.7rem 1rem;
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      pointer-events: none;
-      display: none;
-      z-index: 10;
-      max-width: 260px;
-      line-height: 1.7;
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--cyan); box-shadow: 0 0 8px var(--cyan);
+      animation: pulse 2s ease-in-out infinite;
     }
-    .conf-tip-name {
-      font-family: var(--font-serif);
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+    .hero-name {
+      font-family: var(--serif); font-size: clamp(3.2rem, 7.5vw, 7rem);
+      font-weight: 400; line-height: 1; letter-spacing: -0.02em; margin-bottom: 0.15em;
+    }
+    .grad-text {
+      background: var(--grad-hero); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
       font-style: italic;
-      color: var(--accent);
-      font-size: 0.85rem;
-      margin-bottom: 0.2rem;
-      display: block;
     }
-    .conf-tip-loc { color: var(--muted); font-size: 0.62rem; }
-    .conf-tip-role {
-      display: inline-block;
-      margin-top: 0.4rem;
-      font-size: 0.58rem;
-      letter-spacing: 0.15em;
-      background: var(--accent);
-      color: var(--bg);
-      padding: 0.15rem 0.5rem;
+    .hero-title {
+      font-family: var(--mono); font-size: clamp(0.7rem, 1.4vw, 0.85rem);
+      font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); margin-top: 1.5rem; margin-bottom: 2.5rem;
+    }
+    .hero-title span { color: var(--cyan); }
+    .hero-desc {
+      font-size: 1.1rem; line-height: 1.85; color: rgba(240,238,255,0.68);
+      max-width: 52ch; margin-bottom: 3rem;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--sans); font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none;
+      padding: 0.85rem 1.8rem; border-radius: 100px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; border: none;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--grad-hero); color: #06060a;
+      box-shadow: 0 4px 30px rgba(139,92,246,0.4);
+    }
+    .btn-primary:hover { box-shadow: 0 8px 40px rgba(139,92,246,0.6); }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 4rem; padding-top: 3rem;
+      border-top: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .hero-stat-num {
+      font-family: var(--serif); font-size: 2rem; font-style: italic;
+      background: var(--grad-hero); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text; line-height: 1;
+    }
+    .hero-stat-label {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin-top: 0.25rem;
     }
 
-    .conf-list { display: flex; flex-direction: column; }
-    .conf-row {
-      display: grid;
-      grid-template-columns: 72px 1fr auto;
-      gap: 1.5rem;
-      padding: 1.2rem 0;
-      border-bottom: 1px solid #1a1a1a;
-      align-items: center;
-      transition: background 0.2s, padding 0.2s, margin 0.2s;
+    /* MARQUEE */
+    .marquee-wrap {
+      overflow: hidden; padding: 1.1rem 0;
+      background: linear-gradient(90deg, var(--violet-d), var(--cyan-d), var(--lime-d), var(--pink-d), var(--violet-d));
+      background-size: 300% 100%;
+      animation: gradshift 8s linear infinite;
     }
-    .conf-row:hover {
-      background: var(--bg2);
-      padding: 1.2rem 1rem;
-      margin: 0 -1rem;
+    @keyframes gradshift { 0%{background-position:0%;} 100%{background-position:300%;} }
+    .marquee-track {
+      display: flex; white-space: nowrap;
+      animation: marquee 30s linear infinite;
     }
-    .conf-row-year {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      color: var(--accent);
+    .marquee-item {
+      font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.9); padding: 0 2rem;
     }
-    .conf-row-name {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 1.05rem;
-      color: var(--text);
-    }
-    .conf-row-loc {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      margin-top: 0.2rem;
-    }
-    .conf-role-badge {
-      font-family: var(--font-mono);
-      font-size: 0.58rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--bg);
-      background: var(--accent);
-      padding: 0.2rem 0.55rem;
-      white-space: nowrap;
-    }
-    .conf-role-badge.attendee { background: #333; color: #888; }
+    .marquee-sep { color: rgba(255,255,255,0.4); padding: 0 0.5rem; }
+    @keyframes marquee { from{transform:translateX(0);} to{transform:translateX(-50%);} }
 
-    /* BLOG */
-    #blog .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+    /* SECTIONS */
+    section { padding: 7rem 3rem; position: relative; }
+    .sec-label {
+      font-family: var(--mono); font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;
     }
-    .blog-card {
-      border: 1px solid var(--border);
-      padding: 2rem;
+    .sec-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .sec-title {
+      font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.8rem);
+      font-weight: 400; line-height: 1.1; letter-spacing: -0.015em; margin-bottom: 1.5rem;
+    }
+    .sec-title em { font-style: italic; }
+
+    /* ABOUT */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: start; margin-top: 4rem;
+    }
+    .about-text { font-size: 1.05rem; line-height: 1.9; color: rgba(240,238,255,0.65); }
+    .about-text p + p { margin-top: 1.25rem; }
+    .about-text strong { color: var(--text); font-weight: 700; }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+    .tag {
+      font-family: var(--mono); font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.35rem 0.9rem; border-radius: 100px; border: 1px solid;
+    }
+    .tag-v { color: var(--violet-l); border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.08); }
+    .tag-c { color: var(--cyan);     border-color: rgba(34,211,238,0.4);  background: rgba(34,211,238,0.08); }
+    .tag-l { color: var(--lime);     border-color: rgba(163,230,53,0.4);  background: rgba(163,230,53,0.08); }
+    .tag-o { color: var(--orange);   border-color: rgba(251,146,60,0.4);  background: rgba(251,146,60,0.08); }
+    .tag-p { color: var(--pink);     border-color: rgba(244,114,182,0.4); background: rgba(244,114,182,0.08); }
+
+    .about-right { display: flex; flex-direction: column; gap: 1.25rem; }
+    .info-card {
+      padding: 1.75rem; background: var(--card);
+      border: 1px solid var(--border); border-radius: 1rem;
+      position: relative; overflow: hidden;
+    }
+    .info-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+    .ic-v::before { background: var(--grad-3); }
+    .ic-p::before { background: var(--grad-2); }
+    .ic-l::before { background: var(--grad-4); }
+    .ic-y::before { background: linear-gradient(90deg,var(--yellow),var(--orange)); }
+    .ic-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .ic-val { font-size: 1rem; font-weight: 700; line-height: 1.4; }
+    .gv { background: var(--grad-3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .gp { background: var(--grad-2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .gl { background: var(--grad-4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* RESEARCH */
+    #research { background: var(--bg); }
+    .research-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1.5rem; margin-top: 4rem;
+    }
+    .rc {
+      padding: 2rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 1rem; position: relative; overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .rc:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.14); }
+    .rc::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; border-radius: 0 0 1rem 1rem;
+    }
+    .rc-v::after { background: var(--grad-3); }
+    .rc-l::after { background: var(--grad-4); }
+    .rc-p::after { background: var(--grad-2); }
+    .rc-o::after { background: linear-gradient(135deg,var(--orange),var(--yellow)); }
+    .rc-c::after { background: linear-gradient(135deg,var(--cyan),var(--lime)); }
+    .rc-pp::after{ background: linear-gradient(135deg,var(--violet),var(--pink)); }
+    .chip {
+      display: inline-flex; font-family: var(--mono); font-size: 0.58rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase; padding: 0.28rem 0.75rem;
+      border-radius: 100px; margin-bottom: 1.2rem;
+    }
+    .chip-v  { color: var(--violet-l); background: rgba(139,92,246,0.15); }
+    .chip-c  { color: var(--cyan);     background: rgba(34,211,238,0.12); }
+    .chip-l  { color: var(--lime);     background: rgba(163,230,53,0.12); }
+    .chip-p  { color: var(--pink);     background: rgba(244,114,182,0.15); }
+    .chip-o  { color: var(--orange);   background: rgba(251,146,60,0.12); }
+    .rc-title { font-family: var(--serif); font-size: 1.25rem; font-style: italic; margin-bottom: 0.75rem; line-height: 1.3; }
+    .rc-desc  { font-size: 0.87rem; line-height: 1.75; color: var(--muted); }
+
+    /* SKILLS */
+    #skills { background: var(--surface); }
+    .skills-layout {
+      display: grid; grid-template-columns: 1fr 2fr;
+      gap: 6rem; align-items: start; margin-top: 4rem;
+    }
+    .skill-bars { display: flex; flex-direction: column; gap: 1.5rem; }
+    .sb-row-label { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 0.67rem; letter-spacing: 0.07em; margin-bottom: 0.45rem; }
+    .sb-pct { color: var(--muted); }
+    .sb-track { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+    .sb-fill { height: 100%; border-radius: 2px; width: 0; transition: width 1.4s cubic-bezier(0.16,1,0.3,1); }
+
+    .tools-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+    .tool-chip {
+      padding: 1.2rem 1.4rem; background: var(--card);
+      border: 1px solid var(--border); border-radius: 0.75rem;
+      text-align: center; transition: border-color 0.3s, transform 0.3s;
+    }
+    .tool-chip:hover { transform: translateY(-3px); }
+    .tool-name { font-weight: 700; font-size: 0.92rem; margin-bottom: 0.2rem; }
+    .tool-sub { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+    /* PUBLICATIONS */
+    #publications { background: var(--bg); }
+    .pub-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 4rem; }
+    .pub-item {
+      display: grid; grid-template-columns: 80px 1fr auto;
+      gap: 2rem; align-items: center; padding: 1.75rem;
+      background: var(--card); border: 1px solid var(--border); border-radius: 1rem;
       transition: border-color 0.3s, transform 0.3s;
-      cursor: pointer;
     }
-    .blog-card:hover { border-color: var(--accent); transform: translateY(-4px); }
-    .blog-date {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.8rem;
-    }
-    .blog-title {
-      font-family: var(--font-serif);
-      font-size: 1.2rem;
-      font-style: italic;
-      color: var(--text);
-      line-height: 1.4;
-      margin-bottom: 0.8rem;
-    }
-    .blog-excerpt {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-    .blog-read {
-      display: inline-block;
-      margin-top: 1.2rem;
-      font-family: var(--font-mono);
-      font-size: 0.63rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      text-decoration: none;
-    }
+    .pub-item:hover { border-color: rgba(139,92,246,0.4); transform: translateX(4px); }
+    .pub-year { font-family: var(--serif); font-size: 1.5rem; font-style: italic; text-align: center; background: var(--grad-3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .pub-title { font-weight: 600; font-size: 0.98rem; margin-bottom: 0.35rem; line-height: 1.4; }
+    .pub-journal { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; color: var(--muted); }
+    .pub-doi { font-family: var(--mono); font-size: 0.65rem; color: var(--cyan); text-decoration: none; white-space: nowrap; transition: color 0.2s; }
+    .pub-doi:hover { color: var(--violet-l); }
 
-    /* CV */
-    #cv {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 3rem;
+    /* CONFERENCES */
+    #conferences { background: var(--surface); }
+    .conf-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; margin-top: 4rem; }
+    .conf-item {
+      display: flex; align-items: flex-start; gap: 1.25rem;
+      padding: 1.5rem 1.75rem; background: var(--card);
+      border: 1px solid var(--border); border-radius: 0.875rem;
+      transition: border-color 0.3s, transform 0.3s;
     }
-    #cv .cv-text { flex: 1; min-width: 280px; }
-    .cv-download {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      letter-spacing: 0.1em;
-      color: var(--bg);
-      background: var(--accent);
-      padding: 1.2rem 2.5rem;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
-      white-space: nowrap;
-    }
-    .cv-download:hover { background: var(--accent2); transform: translateY(-2px); }
-    .cv-download svg { width: 20px; height: 20px; }
+    .conf-item:hover { transform: translateY(-3px); }
+    .conf-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .conf-year { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
+    .conf-name { font-weight: 600; font-size: 0.93rem; margin-bottom: 0.35rem; line-height: 1.4; }
+    .conf-badge { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 100px; }
 
     /* CONTACT */
-    #contact .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
+    #contact { background: var(--bg); text-align: center; padding: 8rem 3rem; overflow: hidden; }
+    .contact-inner { position: relative; z-index: 2; }
+    .contact-title { font-family: var(--serif); font-size: clamp(2.8rem, 6.5vw, 6rem); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .contact-sub { font-size: 1.05rem; color: var(--muted); max-width: 44ch; margin: 0 auto 3rem; line-height: 1.7; }
+    .contact-cards { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .contact-card {
+      display: flex; flex-direction: column; align-items: flex-start;
+      padding: 1.5rem 2rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 1rem; text-decoration: none; min-width: 190px;
+      transition: transform 0.3s, border-color 0.3s;
     }
-    .contact-info { display: flex; flex-direction: column; gap: 2rem; }
-    .contact-entry { border-left: 2px solid var(--border); padding-left: 1.5rem; }
-    .contact-entry-label {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.3rem;
-    }
-    .contact-entry a, .contact-entry span {
-      font-family: var(--font-serif);
-      font-size: 1rem;
-      color: var(--text);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .contact-entry a:hover { color: var(--accent); }
-    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
-    .contact-form input,
-    .contact-form textarea {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: var(--font-serif);
-      font-size: 1rem;
-      padding: 1rem 1.2rem;
-      outline: none;
-      width: 100%;
-      transition: border-color 0.2s;
-      resize: none;
-    }
-    .contact-form input::placeholder,
-    .contact-form textarea::placeholder { color: var(--muted); }
-    .contact-form input:focus,
-    .contact-form textarea:focus { border-color: var(--accent); }
-    .contact-form button {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      letter-spacing: 0.12em;
-      background: var(--accent);
-      color: var(--bg);
-      border: none;
-      padding: 1rem 2rem;
-      cursor: none;
-      transition: background 0.2s;
-    }
-    .contact-form button:hover { background: var(--accent2); }
+    .contact-card:hover { transform: translateY(-4px); }
+    .cc-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+    .cc-val { font-size: 0.88rem; font-weight: 700; color: var(--text); }
 
     /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    footer .footer-name {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-    }
-    footer .footer-copy {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-    }
-    footer .footer-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-    }
-    footer .footer-links a {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    footer .footer-links a:hover { color: var(--accent); }
+    footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; }
+    .ft { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--hint); }
+    .ft-grad { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; background: var(--grad-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-    /* Fade-in on scroll */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.up { opacity: 1; transform: none; }
+    .d1{transition-delay:0.1s;} .d2{transition-delay:0.2s;} .d3{transition-delay:0.3s;} .d4{transition-delay:0.4s;}
 
-    /* Responsive */
     @media (max-width: 900px) {
-      nav { padding: 1.2rem 1.5rem; }
-      .nav-links { gap: 1rem; }
-      section { padding: 5rem 1.5rem; }
-      #hero { padding: 0 1.5rem 4rem; }
-      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .projects-grid, .blog-grid { grid-template-columns: 1fr; }
-      footer { padding: 2rem 1.5rem; }
-      .pub-item { grid-template-columns: 60px 1fr; }
-      .pub-link { display: none; }
-      #cv { flex-direction: column; }
-      .conf-row { grid-template-columns: 60px 1fr; }
-      .conf-role-badge { display: none; }
-    }
-    @media (max-width: 600px) {
+      nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
-      .hero-meta { flex-direction: column; align-items: flex-start; }
-      .hero-links { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
-      #conf-map-container { height: 260px; }
+      section { padding: 5rem 1.5rem; }
+      #hero { padding: 7rem 1.5rem 4rem; }
+      .about-grid, .skills-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .research-grid { grid-template-columns: 1fr; }
+      .conf-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: repeat(2,1fr); }
+      .pub-item { grid-template-columns: 1fr; gap: 0.75rem; }
+      .hero-brain { display: none; }
+      footer { flex-direction: column; gap: 0.75rem; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Custom cursor -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="#hero" class="nav-logo">Y · E · L · C</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#conferences">Conferences</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#hero" class="nav-logo">Y·E·L·C</a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="#conferences">Conferences</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#cv">CV</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+<!-- HERO -->
+<section id="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
 
-  <!-- HERO -->
-  <section id="hero">
-    <canvas id="neural"></canvas>
-    <div class="hero-content">
-      <div class="marquee-wrap">
-        <div class="marquee-track">
-          <span class="marquee-item">YOSHUA LIMA-CARMONA <span>✦</span> </span>
-          <span class="marquee-item">NEUROSCIENCE <span>✦</span> </span>
-          <span class="marquee-item">EEG · PSYCHOPHYSIOLOGY · MUSIC <span>✦</span> </span>
-          <span class="marquee-item">BRAIN-ACCELNET <span>✦</span> </span>
-          <span class="marquee-item">YOSHUA LIMA-CARMONA <span>✦</span> </span>
-          <span class="marquee-item">NEUROSCIENCE <span>✦</span> </span>
-          <span class="marquee-item">EEG · PSYCHOPHYSIOLOGY · MUSIC <span>✦</span> </span>
-          <span class="marquee-item">BRAIN-ACCELNET <span>✦</span> </span>
-        </div>
+  <svg class="hero-brain" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="200" cy="200" r="178" stroke="white" stroke-width="0.6" stroke-dasharray="4 7"/>
+    <circle cx="200" cy="200" r="118" stroke="white" stroke-width="0.5" stroke-dasharray="2 9"/>
+    <ellipse cx="200" cy="200" rx="78" ry="128" stroke="white" stroke-width="0.6"/>
+    <path d="M200 72 C232 122 262 142 280 182 C298 222 288 272 258 302 C238 322 220 332 200 332" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M200 72 C168 122 138 142 120 182 C102 222 112 272 142 302 C162 322 180 332 200 332" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M138 182 C160 177 182 187 200 182 C218 177 240 177 262 182" stroke="white" stroke-width="0.8" stroke-linecap="round"/>
+    <path d="M128 222 C154 217 176 227 200 222 C224 217 248 220 266 228" stroke="white" stroke-width="0.8" stroke-linecap="round"/>
+    <circle cx="200" cy="200" r="5" fill="white" opacity="0.5"/>
+    <circle cx="154" cy="152" r="2.5" fill="white" opacity="0.5"/>
+    <circle cx="246" cy="152" r="2.5" fill="white" opacity="0.5"/>
+    <circle cx="138" cy="252" r="2.5" fill="white" opacity="0.5"/>
+    <circle cx="264" cy="242" r="2.5" fill="white" opacity="0.5"/>
+    <circle cx="200" cy="118" r="2" fill="white" opacity="0.35"/>
+    <circle cx="200" cy="282" r="2" fill="white" opacity="0.35"/>
+    <line x1="154" y1="152" x2="200" y2="200" stroke="white" stroke-width="0.5" opacity="0.25"/>
+    <line x1="246" y1="152" x2="200" y2="200" stroke="white" stroke-width="0.5" opacity="0.25"/>
+    <line x1="138" y1="252" x2="200" y2="200" stroke="white" stroke-width="0.5" opacity="0.25"/>
+    <line x1="264" y1="242" x2="200" y2="200" stroke="white" stroke-width="0.5" opacity="0.25"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">PhD Researcher · University of Houston</div>
+    <h1 class="hero-name reveal">
+      Yoshua E.<br /><span class="grad-text">Lima-Carmona</span>
+    </h1>
+    <p class="hero-title reveal d1">
+      Neuroscience <span>·</span> EEG &amp; Psychophysiology <span>·</span> Music Cognition
+    </p>
+    <p class="hero-desc reveal d2">
+      Exploring how the human brain encodes, processes, and responds to music and art.
+      President of the BRAIN-AccelNet Student Network — building bridges between science, creativity, and the mind.
+    </p>
+    <div class="hero-ctas reveal d3">
+      <a href="#research" class="btn btn-primary">View Research ↓</a>
+      <a href="https://yoshlima21.github.io/cv.pdf" class="btn btn-ghost" target="_blank">Download CV</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+    <div class="hero-stats reveal d4">
+      <div><div class="hero-stat-num">6+</div><div class="hero-stat-label">Active Projects</div></div>
+      <div><div class="hero-stat-num">7+</div><div class="hero-stat-label">Conferences</div></div>
+      <div><div class="hero-stat-num">EEG</div><div class="hero-stat-label">Primary Modality</div></div>
+      <div><div class="hero-stat-num">Intl.</div><div class="hero-stat-label">BRAIN-AccelNet</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Yoshua E. Lima-Carmona</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Neuroscience PhD</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">EEG · ICA · Dipole Fitting</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Music Cognition</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">BRAIN-AccelNet President</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Psychophysiology</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">University of Houston</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Yoshua E. Lima-Carmona</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Neuroscience PhD</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">EEG · ICA · Dipole Fitting</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Music Cognition</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">BRAIN-AccelNet President</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">Psychophysiology</span><span class="marquee-sep">✦</span>
+    <span class="marquee-item">University of Houston</span><span class="marquee-sep">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label reveal" style="color:var(--violet-l)">
+    <div class="sec-dot" style="background:var(--violet);box-shadow:0 0 8px var(--violet);"></div>
+    01 — Biography
+  </div>
+  <h2 class="sec-title reveal d1">The Mind <em>Behind the Work</em></h2>
+  <div class="about-grid">
+    <div class="about-text reveal d2">
+      <p>I am a <strong>Neuroscience PhD researcher</strong> at the University of Houston, working at the intersection of brain electrophysiology, psychophysiology, and music cognition. My research investigates how the brain encodes, processes, and responds to complex auditory and artistic stimuli.</p>
+      <p>As <strong>President of the BRAIN-AccelNet Student Network</strong>, I lead an international community of emerging neuroscientists committed to cross-disciplinary collaboration and open science. I believe understanding the brain requires combining rigorous methodology with creative thinking.</p>
+      <p>My technical work spans <strong>EEG signal processing</strong>, ICA decomposition, dipole source localization, accelerometer integration, and multimodal data analysis — always in pursuit of a deeper understanding of how we experience the world.</p>
+      <div class="about-tags">
+        <span class="tag tag-v">EEG</span>
+        <span class="tag tag-c">MNE-Python</span>
+        <span class="tag tag-l">MATLAB</span>
+        <span class="tag tag-o">EEGLAB</span>
+        <span class="tag tag-p">Music Cognition</span>
+        <span class="tag tag-v">ICA</span>
+        <span class="tag tag-c">Psychophysiology</span>
+        <span class="tag tag-l">Open Science</span>
       </div>
-      <div class="hero-meta">
-        <div>
-          <p class="hero-title">PhD Researcher · University of Houston</p>
-          <h1 class="hero-name">Yoshua E.<br>Lima-Carmona</h1>
-          <p class="hero-sub">President, BRAIN-AccelNet Student Network</p>
-        </div>
-        <div class="hero-links">
-          <a href="https://github.com/YoshLima21" target="_blank">github.com/YoshLima21</a>
-          <a href="mailto:yelimacarmona@uh.edu">yelimacarmona@uh.edu</a>
-          <a href="#research">↓ See my research</a>
+    </div>
+    <div class="about-right reveal d3">
+      <div class="info-card ic-v">
+        <div class="ic-label">Primary Affiliation</div>
+        <div class="ic-val gv">University of Houston<br />Neuroscience PhD Program</div>
+      </div>
+      <div class="info-card ic-p">
+        <div class="ic-label">Leadership Role</div>
+        <div class="ic-val gp">President · BRAIN-AccelNet<br />Student Network</div>
+      </div>
+      <div class="info-card ic-l">
+        <div class="ic-label">Research Focus</div>
+        <div class="ic-val gl">Brain Electrophysiology<br />Music &amp; Aesthetic Perception</div>
+      </div>
+      <div class="info-card ic-y">
+        <div class="ic-label">Contact</div>
+        <div class="ic-val" style="font-size:0.9rem;">
+          <a href="mailto:yelimacarmona@uh.edu" style="color:var(--yellow);text-decoration:none;">yelimacarmona@uh.edu</a><br/>
+          <a href="https://github.com/YoshLima21" target="_blank" style="color:var(--orange);text-decoration:none;">github.com/YoshLima21</a>
         </div>
       </div>
     </div>
-    <div class="scroll-indicator">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <p class="section-label">01 — About<span class="section-number">Biography</span></p>
-    <h2 class="section-heading fade-in">The Mind<br>Behind the Work</h2>
-    <div class="about-grid fade-in">
-      <div class="about-bio">
-        <p>I am a <em>Neuroscience PhD researcher</em> at the University of Houston, working at the intersection of brain electrophysiology, psychophysiology, and music cognition. My research investigates how the brain encodes, processes, and responds to complex auditory and artistic stimuli.</p>
-        <p>As President of the <em>BRAIN-AccelNet Student Network</em>, I lead an international community of emerging neuroscientists committed to cross-disciplinary collaboration and open science. I believe that understanding the brain requires combining rigorous methodology with creative thinking.</p>
-        <p>My technical work spans <em>EEG signal processing</em>, ICA decomposition, dipole source localization, accelerometer integration, and multimodal data analysis — always in pursuit of a deeper understanding of how we experience the world.</p>
-      </div>
-      <div class="about-stats">
-        <div class="stat-item fade-in">
-          <div class="stat-number">EEG</div>
-          <div class="stat-label">Primary modality · Signal processing & ICA</div>
-        </div>
-        <div class="stat-item fade-in">
-          <div class="stat-number">MNE</div>
-          <div class="stat-label">Core toolchain · Python, MATLAB, EEGLAB</div>
-        </div>
-        <div class="stat-item fade-in">
-          <div class="stat-number">INTL</div>
-          <div class="stat-label">Network · BRAIN-AccelNet, global collaborators</div>
-        </div>
-        <div class="stat-item fade-in">
-          <div class="stat-number">UH</div>
-          <div class="stat-label">University of Houston · Neuroscience PhD</div>
-        </div>
-      </div>
+<!-- RESEARCH -->
+<section id="research">
+  <div class="sec-label reveal" style="color:var(--cyan)">
+    <div class="sec-dot" style="background:var(--cyan);box-shadow:0 0 8px var(--cyan);"></div>
+    02 — Active Projects
+  </div>
+  <h2 class="sec-title reveal d1">Current <em>Research</em></h2>
+  <div class="research-grid">
+    <div class="rc rc-v reveal">
+      <span class="chip chip-v">EEG · Music Cognition</span>
+      <div class="rc-title">Diabelli Variations Study</div>
+      <p class="rc-desc">A multimodal study combining EEG with structured musical variation ratings. Examining neural responses to Diabelli's 33 variations, with psychophysiological correlates of aesthetic perception.</p>
     </div>
-  </section>
-
-  <!-- RESEARCH -->
-  <section id="research">
-    <p class="section-label">02 — Research<span class="section-number">Active Projects</span></p>
-    <h2 class="section-heading fade-in">Current<br>Projects</h2>
-    <div class="projects-grid fade-in">
-      <div class="project-card">
-        <div class="project-tag">EEG · Music Cognition</div>
-        <div class="project-name">Diabelli</div>
-        <div class="project-desc">A multimodal study combining EEG recordings with structured musical variation ratings. Examining neural responses to Diabelli's 33 variations across participants, with psychophysiological correlates of aesthetic perception.</div>
-      </div>
-      <div class="project-card">
-        <div class="project-tag">Signal Processing</div>
-        <div class="project-name">ICA Dipole Pipeline</div>
-        <div class="project-desc">An MNE-Python pipeline for automated ICA component classification, dipole fitting to the fsaverage template, and AAL atlas-based anatomical labeling — with per-component MRI, topography, and spectrogram figures.</div>
-      </div>
-      <div class="project-card">
-        <div class="project-tag">Psychophysiology</div>
-        <div class="project-name">ACC + EEG Integration</div>
-        <div class="project-desc">Extending classical EEG raster visualization to include conductor motion data from accelerometers. Traces from head and hand provide a synchronized view of neural and motor dynamics during musical performance.</div>
-      </div>
-      <div class="project-card">
-        <div class="project-tag">Network</div>
-        <div class="project-name">BRAIN-AccelNet</div>
-        <div class="project-desc">As Student Network President, I coordinate international workshops, speaker series (including invited lectures from Prof. Stephen Grossberg), and cross-institutional research collaborations across neuroscience disciplines.</div>
-      </div>
-      <div class="project-card">
-        <div class="project-tag">Open Science</div>
-        <div class="project-name">Data Descriptor</div>
-        <div class="project-desc">Preparing a data descriptor publication for the Diabelli EEG dataset — detailing acquisition protocols, preprocessing pipelines, and multimodal figure generation, enabling reproducibility and community reuse.</div>
-      </div>
-      <div class="project-card">
-        <div class="project-tag">Methods</div>
-        <div class="project-name">Source Localization</div>
-        <div class="project-desc">Applying dipole fitting and AAL parcellation to characterize the spatial origins of ICA components — linking scalp-level electrophysiology to anatomically meaningful brain regions via MNI152 templates.</div>
-      </div>
+    <div class="rc rc-c reveal d1">
+      <span class="chip chip-c">Signal Processing</span>
+      <div class="rc-title">ICA Dipole Pipeline</div>
+      <p class="rc-desc">An MNE-Python pipeline for automated ICA classification, dipole fitting to fsaverage, and AAL atlas-based anatomical labeling — with per-component MRI, topography, and spectrogram figures.</p>
     </div>
-  </section>
+    <div class="rc rc-l reveal d2">
+      <span class="chip chip-l">Psychophysiology</span>
+      <div class="rc-title">ACC + EEG Integration</div>
+      <p class="rc-desc">Extending classical EEG raster visualization to include conductor motion data from accelerometers. Synchronized traces of neural and motor dynamics during musical performance.</p>
+    </div>
+    <div class="rc rc-p reveal">
+      <span class="chip chip-p">Network</span>
+      <div class="rc-title">BRAIN-AccelNet Leadership</div>
+      <p class="rc-desc">Coordinating international workshops, speaker series including invited lectures from Prof. Stephen Grossberg, and cross-institutional research collaborations across neuroscience disciplines.</p>
+    </div>
+    <div class="rc rc-o reveal d1">
+      <span class="chip chip-o">Open Science</span>
+      <div class="rc-title">Diabelli Data Descriptor</div>
+      <p class="rc-desc">Preparing a data descriptor publication for the Diabelli EEG dataset — detailing acquisition protocols, preprocessing pipelines, and multimodal figure generation for community reuse.</p>
+    </div>
+    <div class="rc rc-pp reveal d2">
+      <span class="chip chip-v">Methods</span>
+      <div class="rc-title">Source Localization</div>
+      <p class="rc-desc">Applying dipole fitting and AAL parcellation to characterize the spatial origins of ICA components — linking scalp-level electrophysiology to anatomically meaningful brain regions via MNI152 templates.</p>
+    </div>
+  </div>
+</section>
 
-  <!-- PUBLICATIONS -->
-  <section id="publications">
-    <p class="section-label">03 — Publications<span class="section-number">Academic Work</span></p>
-    <h2 class="section-heading fade-in">Published<br>Works</h2>
-    <div class="pub-list fade-in">
-      <div class="pub-item">
-        <div class="pub-year">2025</div>
-        <div>
-          <div class="pub-title">Add your publication title here — italic style, as it will appear in a citation</div>
-          <div class="pub-journal">Journal Name · Authors · Volume, Pages</div>
-        </div>
-        <a href="#" class="pub-link">DOI →</a>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-label reveal" style="color:var(--lime)">
+    <div class="sec-dot" style="background:var(--lime);box-shadow:0 0 8px var(--lime);"></div>
+    03 — Technical Expertise
+  </div>
+  <h2 class="sec-title reveal d1">What I <em>Do Best</em></h2>
+  <div class="skills-layout">
+    <div class="skill-bars reveal d2">
+      <div>
+        <div class="sb-row-label"><span>EEG Signal Processing</span><span class="sb-pct">95%</span></div>
+        <div class="sb-track"><div class="sb-fill" data-w="95%" style="background:var(--grad-3);"></div></div>
       </div>
-      <div class="pub-item">
-        <div class="pub-year">2024</div>
-        <div>
-          <div class="pub-title">Add your second publication title here — replace with your real citation</div>
-          <div class="pub-journal">Journal Name · Authors · Volume, Pages</div>
-        </div>
-        <a href="#" class="pub-link">DOI →</a>
+      <div>
+        <div class="sb-row-label"><span>ICA &amp; Dipole Fitting</span><span class="sb-pct">90%</span></div>
+        <div class="sb-track"><div class="sb-fill" data-w="90%" style="background:var(--grad-4);"></div></div>
       </div>
-      <div class="pub-item">
-        <div class="pub-year">2023</div>
-        <div>
-          <div class="pub-title">Add your third publication title here — replace with your real citation</div>
-          <div class="pub-journal">Journal Name · Authors · Volume, Pages</div>
-        </div>
-        <a href="#" class="pub-link">DOI →</a>
+      <div>
+        <div class="sb-row-label"><span>MNE-Python / MATLAB</span><span class="sb-pct">88%</span></div>
+        <div class="sb-track"><div class="sb-fill" data-w="88%" style="background:var(--grad-hero);"></div></div>
+      </div>
+      <div>
+        <div class="sb-row-label"><span>Music Cognition Research</span><span class="sb-pct">92%</span></div>
+        <div class="sb-track"><div class="sb-fill" data-w="92%" style="background:var(--grad-2);"></div></div>
+      </div>
+      <div>
+        <div class="sb-row-label"><span>Multimodal Data Analysis</span><span class="sb-pct">85%</span></div>
+        <div class="sb-track"><div class="sb-fill" data-w="85%" style="background:linear-gradient(135deg,var(--lime),var(--cyan));"></div></div>
+      </div>
+      <div>
+        <div class="sb-row-label"><span>Scientific Writing</span><span class="sb-pct">87%</span></div>
+        <div class="sb-track"><div class="sb-fill" data-w="87%" style="background:linear-gradient(135deg,var(--orange),var(--yellow));"></div></div>
       </div>
     </div>
-  </section>
-
-  <!-- CONFERENCES -->
-  <section id="conferences">
-    <p class="section-label">04 — Conferences<span class="section-number">Attended & Presented</span></p>
-    <h2 class="section-heading fade-in">Conferences<br>&amp; Events</h2>
-
-    <div class="conf-filter-row fade-in" id="conf-filters">
-      <button class="conf-filter-btn active" data-role="all">All (7)</button>
-      <button class="conf-filter-btn" data-role="Presenter">Presenter</button>
-    </div>
-
-    <div class="conf-legend fade-in">
-      <div class="conf-legend-item">
-        <div class="conf-legend-dot" style="background:#b5ff3a"></div>
-        Presenter
+    <div class="tools-grid reveal d2">
+      <div class="tool-chip" style="border-color:rgba(139,92,246,0.3);">
+        <div class="tool-name" style="background:var(--grad-3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">MNE</div>
+        <div class="tool-sub">Python · Core toolchain</div>
       </div>
-      <div class="conf-legend-item" style="font-size:0.6rem;color:#444;letter-spacing:0.08em;">
-        ✦ Click dots to explore · Badge number = multiple events
+      <div class="tool-chip" style="border-color:rgba(34,211,238,0.3);">
+        <div class="tool-name" style="color:var(--cyan);">EEGLAB</div>
+        <div class="tool-sub">MATLAB · EEG processing</div>
       </div>
-    </div>
-
-    <div id="conf-map-container" class="fade-in">
-      <svg id="conf-map-svg" viewBox="0 0 960 500" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="conf-map-tooltip" id="conf-tooltip"></div>
-    </div>
-
-    <div class="conf-list fade-in" id="conf-list"></div>
-  </section>
-
-  <!-- BLOG -->
-  <section id="blog">
-    <p class="section-label">05 — Blog<span class="section-number">Notes & Ideas</span></p>
-    <h2 class="section-heading fade-in">Thoughts<br>&amp; Writing</h2>
-    <div class="blog-grid fade-in">
-      <div class="blog-card">
-        <div class="blog-date">Coming Soon</div>
-        <div class="blog-title">What EEG Can — and Cannot — Tell Us About Musical Experience</div>
-        <div class="blog-excerpt">A researcher's reflection on the promises and limits of electrophysiology in the study of aesthetic perception and music cognition.</div>
-        <a href="#" class="blog-read">Read →</a>
+      <div class="tool-chip" style="border-color:rgba(163,230,53,0.3);">
+        <div class="tool-name" style="color:var(--lime);">Python</div>
+        <div class="tool-sub">NumPy · SciPy · Pandas</div>
       </div>
-      <div class="blog-card">
-        <div class="blog-date">Coming Soon</div>
-        <div class="blog-title">Building an International Neuroscience Student Network from the Ground Up</div>
-        <div class="blog-excerpt">Lessons learned from organizing cross-institutional events, managing diverse teams, and fostering open scientific collaboration.</div>
-        <a href="#" class="blog-read">Read →</a>
+      <div class="tool-chip" style="border-color:rgba(251,146,60,0.3);">
+        <div class="tool-name" style="color:var(--orange);">MATLAB</div>
+        <div class="tool-sub">Signal processing</div>
       </div>
-      <div class="blog-card">
-        <div class="blog-date">Coming Soon</div>
-        <div class="blog-title">ICA, Dipoles, and the Art of Source Localization</div>
-        <div class="blog-excerpt">A practical walkthrough of the independent component analysis pipeline and how dipole fitting gives spatial meaning to scalp EEG signals.</div>
-        <a href="#" class="blog-read">Read →</a>
+      <div class="tool-chip" style="border-color:rgba(244,114,182,0.3);">
+        <div class="tool-name" style="color:var(--pink);">Dipole Fit</div>
+        <div class="tool-sub">Source localization</div>
+      </div>
+      <div class="tool-chip" style="border-color:rgba(251,191,36,0.3);">
+        <div class="tool-name" style="color:var(--yellow);">AAL Atlas</div>
+        <div class="tool-sub">Anatomical labeling</div>
+      </div>
+      <div class="tool-chip" style="border-color:rgba(139,92,246,0.3);">
+        <div class="tool-name" style="color:var(--violet-l);">Git / GitHub</div>
+        <div class="tool-sub">Version control</div>
+      </div>
+      <div class="tool-chip" style="border-color:rgba(34,211,238,0.3);">
+        <div class="tool-name" style="color:var(--cyan);">R</div>
+        <div class="tool-sub">Statistical analysis</div>
+      </div>
+      <div class="tool-chip" style="border-color:rgba(163,230,53,0.3);">
+        <div class="tool-name" style="color:var(--lime);">ACC Data</div>
+        <div class="tool-sub">Accelerometer integration</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CV -->
-  <section id="cv">
-    <div class="cv-text">
-      <p class="section-label">06 — Curriculum Vitae</p>
-      <h2 class="section-heading fade-in">Download<br>My CV</h2>
-      <p style="color:var(--muted); font-size:0.95rem; max-width:420px;">
-        Full academic CV including education, research experience, publications, conference presentations, and leadership roles. Updated regularly.
-      </p>
-    </div>
-    <a href="cv.pdf" class="cv-download" download>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-      Download CV (PDF)
-    </a>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <p class="section-label">07 — Contact<span class="section-number">Get in Touch</span></p>
-    <h2 class="section-heading fade-in">Let's<br>Connect</h2>
-    <div class="contact-grid fade-in">
-      <div class="contact-info">
-        <div class="contact-entry">
-          <div class="contact-entry-label">Email</div>
-          <a href="mailto:yelimacarmona@uh.edu">yelimacarmona@uh.edu</a>
-        </div>
-        <div class="contact-entry">
-          <div class="contact-entry-label">GitHub</div>
-          <a href="https://github.com/YoshLima21" target="_blank">github.com/YoshLima21</a>
-        </div>
-        <div class="contact-entry">
-          <div class="contact-entry-label">Affiliation</div>
-          <span>University of Houston<br>Department of Neuroscience</span>
-        </div>
-        <div class="contact-entry">
-          <div class="contact-entry-label">Network</div>
-          <span>BRAIN-AccelNet Student Network<br>President</span>
-        </div>
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="sec-label reveal" style="color:var(--pink)">
+    <div class="sec-dot" style="background:var(--pink);box-shadow:0 0 8px var(--pink);"></div>
+    04 — Academic Work
+  </div>
+  <h2 class="sec-title reveal d1">Published <em>Works</em></h2>
+  <div class="pub-list">
+    <div class="pub-item reveal">
+      <div class="pub-year">2025</div>
+      <div>
+        <div class="pub-title">Add your publication title here — replace with actual citation</div>
+        <div class="pub-journal">Journal Name · Authors · Volume, Pages</div>
       </div>
-      <div class="contact-form">
-        <input type="text" placeholder="Your name" />
-        <input type="email" placeholder="Your email" />
-        <textarea rows="5" placeholder="Your message…"></textarea>
-        <button type="button">Send Message</button>
-        <p style="font-family:var(--font-mono);font-size:0.62rem;color:var(--muted);letter-spacing:0.1em;">
-          ✦ Form sends via your preferred service — see GitHub setup guide.
-        </p>
+      <a href="#" class="pub-doi">DOI →</a>
+    </div>
+    <div class="pub-item reveal d1">
+      <div class="pub-year">2024</div>
+      <div>
+        <div class="pub-title">Add your second publication title here — replace with real citation</div>
+        <div class="pub-journal">Journal Name · Authors · Volume, Pages</div>
+      </div>
+      <a href="#" class="pub-doi">DOI →</a>
+    </div>
+    <div class="pub-item reveal d2">
+      <div class="pub-year">2023</div>
+      <div>
+        <div class="pub-title">Add your third publication title here — replace with real citation</div>
+        <div class="pub-journal">Journal Name · Authors · Volume, Pages</div>
+      </div>
+      <a href="#" class="pub-doi">DOI →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONFERENCES -->
+<section id="conferences">
+  <div class="sec-label reveal" style="color:var(--orange)">
+    <div class="sec-dot" style="background:var(--orange);box-shadow:0 0 8px var(--orange);"></div>
+    05 — Attended &amp; Presented
+  </div>
+  <h2 class="sec-title reveal d1">Conferences <em>&amp; Events</em></h2>
+  <div class="conf-grid">
+    <div class="conf-item reveal" style="--hb:rgba(139,92,246,0.3);">
+      <div class="conf-dot" style="background:var(--violet);box-shadow:0 0 6px var(--violet);"></div>
+      <div>
+        <div class="conf-year">2025</div>
+        <div class="conf-name">Society for Neuroscience — Annual Meeting</div>
+        <span class="conf-badge" style="color:var(--violet-l);background:rgba(139,92,246,0.12);">Presenter</span>
       </div>
     </div>
-  </section>
+    <div class="conf-item reveal d1">
+      <div class="conf-dot" style="background:var(--cyan);box-shadow:0 0 6px var(--cyan);"></div>
+      <div>
+        <div class="conf-year">2024</div>
+        <div class="conf-name">BRAIN-AccelNet International Workshop</div>
+        <span class="conf-badge" style="color:var(--cyan);background:rgba(34,211,238,0.1);">Organizer · Presenter</span>
+      </div>
+    </div>
+    <div class="conf-item reveal">
+      <div class="conf-dot" style="background:var(--lime);box-shadow:0 0 6px var(--lime);"></div>
+      <div>
+        <div class="conf-year">2024</div>
+        <div class="conf-name">Music Perception &amp; Cognition Conference</div>
+        <span class="conf-badge" style="color:var(--lime);background:rgba(163,230,53,0.1);">Presenter</span>
+      </div>
+    </div>
+    <div class="conf-item reveal d1">
+      <div class="conf-dot" style="background:var(--pink);box-shadow:0 0 6px var(--pink);"></div>
+      <div>
+        <div class="conf-year">2023</div>
+        <div class="conf-name">EEG Methods in Cognitive Neuroscience</div>
+        <span class="conf-badge" style="color:var(--pink);background:rgba(244,114,182,0.1);">Attendee</span>
+      </div>
+    </div>
+    <div class="conf-item reveal">
+      <div class="conf-dot" style="background:var(--orange);box-shadow:0 0 6px var(--orange);"></div>
+      <div>
+        <div class="conf-year">2023</div>
+        <div class="conf-name">Psychophysiology Annual Meeting</div>
+        <span class="conf-badge" style="color:var(--orange);background:rgba(251,146,60,0.1);">Presenter</span>
+      </div>
+    </div>
+    <div class="conf-item reveal d1">
+      <div class="conf-dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow);"></div>
+      <div>
+        <div class="conf-year">2022</div>
+        <div class="conf-name">University of Houston Neuroscience Symposium</div>
+        <span class="conf-badge" style="color:var(--yellow);background:rgba(251,191,36,0.1);">Presenter</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-name">Y.E.L.C</div>
-    <ul class="footer-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="https://github.com/YoshLima21" target="_blank">GitHub</a></li>
-    </ul>
-    <p class="footer-copy">© 2025 Yoshua E. Lima-Carmona · Built with purpose</p>
-  </footer>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="blob blob-1" style="opacity:0.15;"></div>
+  <div class="blob blob-2" style="opacity:0.12;"></div>
+  <div class="contact-inner">
+    <div class="sec-label reveal" style="color:var(--violet-l);justify-content:center;">
+      <div class="sec-dot" style="background:var(--violet);box-shadow:0 0 8px var(--violet);"></div>
+      07 — Get in Touch
+    </div>
+    <h2 class="contact-title reveal d1">
+      Let's<br /><span class="grad-text">Connect</span>
+    </h2>
+    <p class="contact-sub reveal d2">
+      Open to collaborations, speaking invitations, and conversations at the intersection of neuroscience, music, and technology.
+    </p>
+    <div class="contact-cards reveal d3">
+      <a href="mailto:yelimacarmona@uh.edu" class="contact-card" style="border-color:rgba(139,92,246,0.35);">
+        <div class="cc-label">Email</div>
+        <div class="cc-val" style="color:var(--violet-l);">yelimacarmona@uh.edu</div>
+      </a>
+      <a href="https://github.com/YoshLima21" target="_blank" class="contact-card" style="border-color:rgba(34,211,238,0.35);">
+        <div class="cc-label">GitHub</div>
+        <div class="cc-val" style="color:var(--cyan);">github.com/YoshLima21</div>
+      </a>
+      <div class="contact-card" style="border-color:rgba(163,230,53,0.35);">
+        <div class="cc-label">Affiliation</div>
+        <div class="cc-val" style="color:var(--lime);font-size:0.82rem;">University of Houston<br />Dept. of Neuroscience</div>
+      </div>
+      <a href="https://yoshlima21.github.io/cv.pdf" target="_blank" class="contact-card" style="border-color:rgba(251,146,60,0.35);">
+        <div class="cc-label">Curriculum Vitae</div>
+        <div class="cc-val" style="color:var(--orange);">Download PDF ↓</div>
+      </a>
+    </div>
+    <a href="mailto:yelimacarmona@uh.edu" class="btn btn-primary reveal d4">Send a Message ✉</a>
+  </div>
+</section>
 
-  <!-- D3 + TopoJSON for map -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<footer>
+  <span class="ft">© 2026 Yoshua E. Lima-Carmona · All rights reserved</span>
+  <span class="ft-grad">Y · E · L · C</span>
+  <span class="ft">University of Houston · Neuroscience PhD</span>
+</footer>
 
-  <script>
-    // ─── Custom Cursor ───────────────────────────────────────────────
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top  = e.clientY + 'px';
-      setTimeout(() => {
-        ring.style.left = e.clientX + 'px';
-        ring.style.top  = e.clientY + 'px';
-      }, 60);
-    });
-    document.querySelectorAll('a, button, .project-card, .blog-card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '20px'; cursor.style.height = '20px';
-        ring.style.width = '60px'; ring.style.height = '60px'; ring.style.opacity = '0.8';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '12px'; cursor.style.height = '12px';
-        ring.style.width = '40px'; ring.style.height = '40px'; ring.style.opacity = '0.5';
-      });
-    });
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('up'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => ro.observe(el));
 
-    // ─── Neural Network Canvas ───────────────────────────────────────
-    (function () {
-      const canvas = document.getElementById('neural');
-      const ctx = canvas.getContext('2d');
-      let W, H, nodes = [];
-      const NODE_COUNT = 90;
-      const MAX_DIST = 180;
-      const ACC = '#b5ff3a';
-      const ACC2 = '#3affcb';
+  document.querySelectorAll('#hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('up'), 300 + i * 150);
+  });
 
-      function resize() {
-        W = canvas.width  = canvas.offsetWidth;
-        H = canvas.height = canvas.offsetHeight;
-      }
-      window.addEventListener('resize', resize);
-      resize();
-
-      for (let i = 0; i < NODE_COUNT; i++) {
-        nodes.push({
-          x: Math.random() * W, y: Math.random() * H,
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: (Math.random() - 0.5) * 0.35,
-          r: Math.random() * 2.5 + 1,
-          pulse: Math.random() * Math.PI * 2
+  const skillsSection = document.querySelector('#skills');
+  const barObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.sb-fill').forEach(bar => {
+          bar.style.width = bar.dataset.w;
         });
-      }
-
-      let mouseX = W / 2, mouseY = H / 2;
-      document.addEventListener('mousemove', e => {
-        const rect = canvas.getBoundingClientRect();
-        mouseX = e.clientX - rect.left;
-        mouseY = e.clientY - rect.top;
-      });
-
-      function draw() {
-        ctx.clearRect(0, 0, W, H);
-        nodes.forEach(n => {
-          n.x += n.vx; n.y += n.vy; n.pulse += 0.02;
-          if (n.x < 0 || n.x > W) n.vx *= -1;
-          if (n.y < 0 || n.y > H) n.vy *= -1;
-          const dx = n.x - mouseX, dy = n.y - mouseY;
-          const md = Math.sqrt(dx*dx + dy*dy);
-          if (md < 120) { n.x += dx / md * 0.6; n.y += dy / md * 0.6; }
-        });
-        for (let i = 0; i < nodes.length; i++) {
-          for (let j = i + 1; j < nodes.length; j++) {
-            const dx = nodes[i].x - nodes[j].x;
-            const dy = nodes[i].y - nodes[j].y;
-            const d  = Math.sqrt(dx*dx + dy*dy);
-            if (d < MAX_DIST) {
-              const alpha = (1 - d / MAX_DIST) * 0.55;
-              ctx.beginPath();
-              ctx.moveTo(nodes[i].x, nodes[i].y);
-              ctx.lineTo(nodes[j].x, nodes[j].y);
-              ctx.strokeStyle = `rgba(181,255,58,${alpha * 0.5})`;
-              ctx.lineWidth = 0.6;
-              ctx.stroke();
-            }
-          }
-        }
-        nodes.forEach((n, idx) => {
-          const glow = Math.sin(n.pulse) * 0.5 + 0.5;
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, n.r * (1 + glow * 0.4), 0, Math.PI * 2);
-          ctx.fillStyle = idx % 5 === 0 ? ACC2 : ACC;
-          ctx.globalAlpha = 0.5 + glow * 0.5;
-          ctx.fill();
-          ctx.globalAlpha = 1;
-        });
-        requestAnimationFrame(draw);
-      }
-      draw();
-    })();
-
-    // ─── Conference Map ───────────────────────────────────────────────
-    (function() {
-      const conferences = [
-        { year: 2022, name: "Society for Neuroscience 2022",                              city: "Washington DC", country: "USA",     lat: 38.9072, lon: -77.0369, role: "Presenter" },
-        { year: 2024, name: "Society for Neuroscience 2024",                              city: "Washington DC", country: "USA",     lat: 38.9072, lon: -77.0369, role: "Presenter" },
-        { year: 2024, name: "Advanced Neural Data Analysis & Neuroinformatics School",    city: "Jülich",        country: "Germany", lat: 50.9224, lon:   6.3639, role: "Presenter" },
-        { year: 2025, name: "Society for the Neuroscience of Creativity",                 city: "Paris",         country: "France",  lat: 48.8566, lon:   2.3522, role: "Presenter" },
-        { year: 2025, name: "Neuroscience of Performative Arts International Seminar",    city: "Bucharest",     country: "Romania", lat: 44.4268, lon:  26.1025, role: "Presenter" },
-        { year: 2025, name: "EBRAINS Summit",                                             city: "Brussels",      country: "Belgium", lat: 50.8503, lon:   4.3517, role: "Presenter" },
-        { year: 2026, name: "EBRAINS Student Conference on Interdisciplinary Brain Research", city: "Nice",      country: "France",  lat: 43.7102, lon:   7.2620, role: "Presenter" },
-      ];
-
-      let activeFilter = 'all';
-      const W = 960, H = 500;
-      const svg = d3.select('#conf-map-svg');
-      const proj = d3.geoNaturalEarth1().scale(160).translate([W / 2 - 60, H / 2 + 30]);
-      const pathGen = d3.geoPath().projection(proj);
-
-      function visible() {
-        return activeFilter === 'all' ? conferences : conferences.filter(c => c.role === activeFilter);
-      }
-
-      function renderDots() {
-        svg.selectAll('.cmap-dot, .cmap-ring, .cmap-badge').remove();
-        const vis = visible();
-
-        // Group by location
-        const groups = {};
-        vis.forEach(c => {
-          const key = c.lat + ',' + c.lon;
-          if (!groups[key]) groups[key] = [];
-          groups[key].push(c);
-        });
-
-        Object.values(groups).forEach(group => {
-          const c = group[0];
-          const pt = proj([c.lon, c.lat]);
-          if (!pt) return;
-          const [x, y] = pt;
-
-          // Pulse ring
-          svg.append('circle').attr('class', 'cmap-ring')
-            .attr('cx', x).attr('cy', y).attr('r', 10)
-            .attr('fill', 'none').attr('stroke', '#b5ff3a')
-            .attr('stroke-width', 1).attr('opacity', 0.3);
-
-          // Main dot
-          svg.append('circle').attr('class', 'cmap-dot')
-            .attr('cx', x).attr('cy', y).attr('r', 7)
-            .attr('fill', '#b5ff3a').attr('stroke', '#070707').attr('stroke-width', 1.5)
-            .style('cursor', 'pointer')
-            .on('mouseenter', function(event) {
-              d3.select(this).attr('r', 11);
-              const tip = document.getElementById('conf-tooltip');
-              const box = document.getElementById('conf-map-container').getBoundingClientRect();
-              const html = group.map(g =>
-                `<span class="conf-tip-name">${g.name}</span><span class="conf-tip-loc">${g.year}</span>`
-              ).join('<hr style="border:none;border-top:1px solid #222;margin:.4rem 0">') +
-                `<br><span class="conf-tip-loc">${c.city}, ${c.country}</span>` +
-                `<span class="conf-tip-role">Presenter</span>`;
-              tip.innerHTML = html;
-              tip.style.display = 'block';
-              let lx = event.clientX - box.left + 14;
-              let ly = event.clientY - box.top - 10;
-              if (lx > box.width - 270) lx = event.clientX - box.left - 260;
-              tip.style.left = Math.max(4, lx) + 'px';
-              tip.style.top  = Math.max(4, ly) + 'px';
-            })
-            .on('mouseleave', function() {
-              d3.select(this).attr('r', 7);
-              document.getElementById('conf-tooltip').style.display = 'none';
-            });
-
-          // Count badge for multi-event cities
-          if (group.length > 1) {
-            svg.append('text').attr('class', 'cmap-badge')
-              .attr('x', x).attr('y', y + 1)
-              .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
-              .attr('fill', '#070707').attr('font-size', '7').attr('font-weight', 'bold')
-              .attr('pointer-events', 'none')
-              .text(group.length);
-          }
-        });
-      }
-
-      function renderList() {
-        const list = document.getElementById('conf-list');
-        list.innerHTML = visible()
-          .slice().sort((a, b) => b.year - a.year)
-          .map(c => `
-            <div class="conf-row">
-              <div class="conf-row-year">${c.year}</div>
-              <div>
-                <div class="conf-row-name">${c.name}</div>
-                <div class="conf-row-loc">${c.city}, ${c.country}</div>
-              </div>
-              <span class="conf-role-badge">${c.role}</span>
-            </div>`).join('');
-      }
-
-      // Build map
-      svg.append('rect').attr('width', W).attr('height', H).attr('fill', '#0d0d0d');
-
-      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
-        .then(r => r.json())
-        .then(world => {
-          const countries = topojson.feature(world, world.objects.countries);
-          svg.append('g').selectAll('path')
-            .data(countries.features).join('path')
-            .attr('d', pathGen)
-            .attr('fill', '#161616')
-            .attr('stroke', '#2c2c2c')
-            .attr('stroke-width', 0.6);
-          renderDots();
-        })
-        .catch(() => {
-          svg.append('text')
-            .attr('x', W / 2).attr('y', H / 2)
-            .attr('text-anchor', 'middle').attr('fill', '#444')
-            .attr('font-size', '13')
-            .text('Map requires internet connection to load country outlines.');
-          renderDots();
-        });
-
-      renderList();
-
-      // Filter buttons
-      document.getElementById('conf-filters').addEventListener('click', e => {
-        const btn = e.target.closest('.conf-filter-btn');
-        if (!btn) return;
-        activeFilter = btn.dataset.role;
-        document.querySelectorAll('.conf-filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderDots();
-        renderList();
-      });
-    })();
-
-    // ─── Scroll Fade-in ───────────────────────────────────────────────
-    const fadeEls = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.12 });
-    fadeEls.forEach(el => observer.observe(el));
-
-    // ─── Nav active highlight ─────────────────────────────────────────
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
-      navLinks.forEach(a => {
-        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
-      });
-    });
-
-    // ─── Contact form ─────────────────────────────────────────────────
-    document.querySelector('.contact-form button').addEventListener('click', function () {
-      const inputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
-      let ok = true;
-      inputs.forEach(i => {
-        if (!i.value.trim()) { i.style.borderColor = 'var(--accent2)'; ok = false; }
-        else { i.style.borderColor = ''; }
-      });
-      if (ok) {
-        this.textContent = 'Message Sent ✦';
-        this.style.background = 'var(--accent2)';
-        setTimeout(() => {
-          this.textContent = 'Send Message';
-          this.style.background = '';
-          inputs.forEach(i => i.value = '');
-        }, 3000);
       }
     });
-  </script>
+  }, { threshold: 0.3 });
+  if (skillsSection) barObs.observe(skillsSection);
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
 </body>
 </html>
